@@ -7,18 +7,8 @@ from .models import *
 #         model = Quiz
 #         fields = ('title', 'body', 'answer')
 
-
 class UserInfoSerializers(serializers.ModelSerializer):
     class Meta:
-<<<<<<< HEAD
-=======
-        model = Quiz
-        fields = ('title', 'body', 'answer')
-
-
-class UserInfoSerializers(serializers.ModelSerializer):
-    class Meta:
->>>>>>> a75e0da2f1adae785e743a949b830e18f866ef22
         model = UserInfo
         fileds = ('id', 'pwd', 'uname', 'email', 'upoint')
 
