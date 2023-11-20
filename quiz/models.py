@@ -187,6 +187,11 @@ class QuizQuiz(models.Model):
     body = models.TextField()
     answer = models.IntegerField()
 
+<<<<<<< HEAD
     class Meta:
         managed = False
         db_table = 'quiz_quiz'
+=======
+
+
+>>>>>>> 0ef5e7c (trash)

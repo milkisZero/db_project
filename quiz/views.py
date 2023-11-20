@@ -15,6 +15,7 @@ def randomQuiz(request, id):
     totalQuizs = Quiz.objects.all()
     randomQuiz = random.sample(list(totalQuizs), id)
     serializer = QuizSerializers(randomQuiz, many=True)
+<<<<<<< HEAD
     return Response(serializer.data) 
 
 
@@ -37,3 +38,6 @@ def ProblemListSortedbyTime(request, Subject):
         print(curs.fetchone())
     
     return Response()
+=======
+    return Response(serializer.data)
+>>>>>>> 0ef5e7c (trash)

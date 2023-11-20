@@ -11,10 +11,15 @@ WHERE U.id = P.maker_id
 """
 
 sql = """
+<<<<<<< HEAD
     SELECT PI.PTime, PI.Pno, PI.Plike, PI.Pstate, S.Sid, S.Sname, U.Upoint, U.Uname 
     FROM Problem_info AS PI, Subjects AS S, User_info AS U
      WHERE  PI.Sub_id=S.Sid && PI.maker_id=U.id
     ORDER BY PI.Ptime DESC
+=======
+     SELECT *
+     FROM User_info
+>>>>>>> 0ef5e7c (trash)
 """
 
 curs.execute(sql)
