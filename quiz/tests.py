@@ -5,11 +5,14 @@ conn = pymysql.connect(host='database-1.czenntejef9p.ap-northeast-2.rds.amazonaw
                         user='admin', password='admin1234', db='db', charset='utf8')
 curs = conn.cursor()
 
-sql = """
+sql = """ 
+SELECT *
+FROM User_info
 """
 curs.execute(sql)
 
 rows = curs.fetchall()
 print (rows)
+
 
 conn.close()
