@@ -9,6 +9,12 @@ class QuizSerializers(serializers.ModelSerializer):
 
 class UserInfoSerializers(serializers.ModelSerializer):
     class Meta:
+        model = Quiz
+        fields = ('title', 'body', 'answer')
+
+
+class UserInfoSerializers(serializers.ModelSerializer):
+    class Meta:
         model = UserInfo
         fields = ('id', 'pwd', 'uname', 'email', 'upoint')
 
