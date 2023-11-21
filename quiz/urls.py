@@ -2,9 +2,10 @@
 # myapi의 urls.py에 연결
 
 from django.urls import path, include
-from .views import helloAPI, randomQuiz
+from .views import *
 
 urlpatterns = [
     path("hello/", helloAPI),
     path("<int:id>/", randomQuiz),
+    path("pro/", ProblemListSortedbyTime),
 ]

@@ -1,10 +1,10 @@
 from django.db import models
 
 # Create your models here.
-# class Quiz(models.Model):
-#     title = models.CharField(max_length=200)
-#     body = models.TextField()
-#     answer = models.IntegerField()
+class Quiz(models.Model):
+    title = models.CharField(max_length=200)
+    body = models.TextField()
+    answer = models.IntegerField()
 
 
 class Comments(models.Model):
@@ -13,9 +13,9 @@ class Comments(models.Model):
     comm = models.CharField(max_length=300, blank=True, null=True)
     comm_time = models.DateField()
 
-    # class Meta:
-    #     managed = False
-    #     db_table = 'Comments'
+    class Meta:
+        managed = False
+        db_table = 'Comments'
 
 class ProblemContent(models.Model):
     pno = models.ForeignKey('ProblemInfo', models.DO_NOTHING, db_column='Pno')  # Field name made lowercase.
@@ -23,9 +23,9 @@ class ProblemContent(models.Model):
     answer = models.CharField(max_length=30)
     ans_explain = models.CharField(max_length=5000)
 
-    # class Meta:
-    #     managed = False
-    #     db_table = 'Problem_content'
+    class Meta:
+        managed = False
+        db_table = 'Problem_content'
 
 
 class ProblemInfo(models.Model):
@@ -36,18 +36,18 @@ class ProblemInfo(models.Model):
     pstate = models.IntegerField(db_column='Pstate', blank=True, null=True)  # Field name made lowercase.
     ptime = models.DateField(db_column='Ptime', blank=True, null=True)  # Field name made lowercase.
 
-    # class Meta:
-    #     managed = False
-    #     db_table = 'Problem_info'
+    class Meta:
+        managed = False
+        db_table = 'Problem_info'
 
 
 class Subjects(models.Model):
     sid = models.IntegerField(db_column='Sid', primary_key=True)  # Field name made lowercase.
     sname = models.CharField(db_column='Sname', max_length=30, blank=True, null=True)  # Field name made lowercase.
 
-    # class Meta:
-    #     managed = False
-    #     db_table = 'Subjects'
+    class Meta:
+        managed = False
+        db_table = 'Subjects'
 
 
 class UserInfo(models.Model):
@@ -57,9 +57,9 @@ class UserInfo(models.Model):
     uname = models.CharField(db_column='Uname', max_length=30)  # Field name made lowercase.
     email = models.CharField(max_length=30, blank=True, null=True)
 
-    # class Meta:
-    #     managed = False
-    #     db_table = 'User_info'
+    class Meta:
+        managed = False
+        db_table = 'User_info'
 
 
 

@@ -1,7 +1,7 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from .models import Quiz
-from .serializers import QuizSerializers
+from .models import *
+from .serializers import *
 import random
 import pymysql
 
@@ -19,21 +19,15 @@ def randomQuiz(request, id):
 
 
 @api_view(['GET'])
-def ProblemListSortedbyTime(request, Subject):
-
-    conn = pymysql.connect(host='database-1.czenntejef9p.ap-northeast-2.rds.amazonaws.com', 
-                        user='admin', password='admin1234', db='db', charset='utf8')
-    curs = conn.cursor()
-    # 아직 테이블이 다 안 만들어져서 실행 안됨
-    sql = """
-    SELECT PI.Pno, PI.Plike, PI.Pstate, PI.Ptime, PC.problem_explain, S.Sid, S.Sname, U.Upoint, U.Uname
-    FROM Problem_info As PI, Problem_content, PC, Subjects AS S, User AS U
-    WHERE PI.Pno=PC.Pno && PI.Pno=S.Pno && PI.Pmaker=U.id
+def ProblemListSortedbyTime(request):
+    strSql = """
+    SELECT PI.Pno, PI.Plike, PI.Pstate, PI.Ptime, PI.maker_id, PI.Sub_id
+    FROM Problem_info As PI
     ORDER BY PI.Ptime DESC
+    LIMIT 0,9
     """
-    curs.execute(sql)
 
-    for i in range(min(curs.rowcount, 10)):
-        print(curs.fetchone())
-    
-    return Response()
+    tmp = ProblemInfo.objects.raw(strSql)
+    serializers = ProblemInfoSerializers(tmp, many = True)
+    return Response(serializers.data)
+
