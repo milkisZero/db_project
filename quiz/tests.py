@@ -9,20 +9,22 @@ SELECT U.id, P.PTime
 FROM User_info AS U, Problem_info AS P
 WHERE U.id = P.maker_id
 """
+Sid = 7
+loadcnt = 4
 
 sql = """
-    SELECT PI.PTime, PI.Pno, PI.Plike, PI.Pstate, S.Sid, S.Sname, U.Upoint, U.Uname 
-    FROM Problem_info AS PI, Subjects AS S, User_info AS U
-     WHERE  PI.Sub_id=S.Sid && PI.maker_id=U.id
+    SELECT PI.PTime, PI.Pno, PI.Plike, PI.Pstate, U.Upoint, U.Uname 
+    FROM Problem_info AS PI, User_info AS U
+     WHERE  PI.Sub_id=""" + str(Sid) + """ && PI.maker_id=U.id
     ORDER BY PI.Ptime DESC
-"""
+    LIMIT """ + str(loadcnt)
 
 curs.execute(sql)
 
 for i in range(curs.rowcount):
-    print(curs.fetchone())
+    rows = curs.fetchone()
+    print(rows)
 
 #rows = curs.fetchall()
 #print (rows)
-
 conn.close()
