@@ -1,8 +1,10 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from .models import Quiz
-from .serializers import QuizSerializers
+from .models import *
+from .serializers import *
 import random
+import pymysql
+
 
 # Create your views here.
 @api_view(['GET'])
@@ -18,10 +20,16 @@ def randomQuiz(request, id):
 
 
 @api_view(['GET'])
-def ProblemListSortedbyTime(request, Subject):
+def ProblemListSortedbyTime(request):
 
     strSql = """
-    SELECT PI.Pno, PI.like, PI.Pstate, PI.Ptime, PC.problem_explain, S.Sid, S.Sname, U.Point, U.name
-    WHERE Problem_info As PI, Problem_content, PC, Subject AS S, User AS U
-    FROM PI.Pno=PC.Pno && PI.Pno=S.Pno && PI.Pmaker=U.id
+    SELECT PI.Pno, PI.Plike, PI.Pstate, PI.Ptime, PI.maker_id, PI.Sub_id
+    FROM Problem_info As PI
+    ORDER BY PI.Ptime DESC
+    LIMIT 0,9
     """
+
+    tmp = ProblemInfo.objects.raw(strSql)
+    serializers = ProblemInfoSerializers(tmp, many = True)
+    return Response(serializers.data)
+
