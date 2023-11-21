@@ -19,15 +19,32 @@ def randomQuiz(request, id):
 
 
 @api_view(['GET'])
-def ProblemListSortedbyTime(request):
-    strSql = """
-    SELECT PI.Pno, PI.Plike, PI.Pstate, PI.Ptime, PI.maker_id, PI.Sub_id
-    FROM Problem_info As PI
-    ORDER BY PI.Ptime DESC
-    LIMIT 0,9
-    """
+def AllProblemListSortbyTime(request, loadcnt):
+    sql = """
+        SELECT PI.PTime, PI.Pno, PI.Plike, PI.Pstate, PC.Problem_explain, U.Upoint, U.Uname, S.name
+        FROM Problem_info AS PI, Problem_content AS PC, User_info AS U, Subjects AS S
+        WHERE  PI.Sub_id=S.Sid && PI.maker_id=U.id && PI.Pno=PC.Pno
+        ORDER BY PI.Ptime DESC 
+        LIMIT {loadcntstr} """
+    sql.format(loadcntstr=str(loadcnt) + "," + str(loadcnt+10))
 
-    tmp = ProblemInfo.objects.raw(strSql)
-    serializers = ProblemInfoSerializers(tmp, many = True)
-    return Response(serializers.data)
+    tmp = ProblemInfo.objects.raw(sql)
+    serializer = ProblemContentSerializers(tmp, many = True)
+    return Response(serializers.data) 
+
+
+
+@api_view(['GET'])
+def SubjectProblemListSortbyTime(request, Sid, loadcnt):
+
+    sql = """
+        SELECT PI.PTime, PI.Pno, PI.Plike, PI.Pstate, PC.Problem_explain, U.Upoint, U.Uname, S.Sname
+        FROM Problem_info AS PI, Problem_content AS PC, User_info AS U, Subjects AS S
+        WHERE  PI.Sub_id={Sidstr} && PI.maker_id=U.id && PI.Pno=PC.Pno
+        ORDER BY PI.Ptime DESC 
+        LIMIT {loadcntstr} """.format(Sidstr=str(Sid), loadcntstr=str(loadcnt) + "," + str(loadcnt+10))
+    
+    tmp = ProblemPage.objects.raw(sql)
+    serializer = ProblemPageSerializers(tmp, many = True)
+    return Response(serializer.data)
 

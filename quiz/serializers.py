@@ -7,6 +7,7 @@ class QuizSerializers(serializers.ModelSerializer):
         model = Quiz
         fields = ('title', 'body', 'answer')
 
+
 class UserInfoSerializers(serializers.ModelSerializer):
     class Meta:
         model = Quiz
@@ -37,3 +38,9 @@ class CommentsSerializers(serializers.ModelSerializer):
     class Meta:
         model = Comments
         fields = ('pno', 'maker', 'comm', 'comm_time')
+
+
+class ProblemPageSerializers(serializers.ModelSerializer):
+     class Meta:
+        models = ProblemPage
+        fields = ('pno', 'sub', 'maker', 'upoint', 'plike', 'pstate', 'ptime', 'problem_exlain' )

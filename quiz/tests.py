@@ -9,15 +9,17 @@ SELECT U.id, P.PTime
 FROM User_info AS U, Problem_info AS P
 WHERE U.id = P.maker_id
 """
-Sid = 7
-loadcnt = 4
+Sid = 1
+loadcnt = 0
 
 sql = """
-    SELECT PI.PTime, PI.Pno, PI.Plike, PI.Pstate, U.Upoint, U.Uname 
-    FROM Problem_info AS PI, User_info AS U
-     WHERE  PI.Sub_id=""" + str(Sid) + """ && PI.maker_id=U.id
-    ORDER BY PI.Ptime DESC
-    LIMIT """ + str(loadcnt)
+        SELECT PI.PTime, PI.Pno, PI.Plike, PI.Pstate
+        FROM Problem_info AS PI, Subjects AS S
+        WHERE  PI.Sub_id={Sidstr}
+        ORDER BY PI.Ptime DESC 
+        LIMIT {loadcntstr}""".format(Sidstr=str(Sid), loadcntstr=(str(loadcnt) + "," + str(loadcnt+10)))
+
+print(sql)
 
 curs.execute(sql)
 

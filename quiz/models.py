@@ -187,11 +187,19 @@ class QuizQuiz(models.Model):
     body = models.TextField()
     answer = models.IntegerField()
 
-<<<<<<< HEAD
     class Meta:
         managed = False
         db_table = 'quiz_quiz'
-=======
 
 
->>>>>>> 0ef5e7c (trash)
+
+class ProblemPage(models.Model):
+    pno = models.IntegerField(db_column='Pno', primary_key=True)  # Field name made lowercase.
+    sub = models.ForeignKey('Subjects', models.DO_NOTHING, db_column='Sub_id')  # Field name made lowercase.
+    maker = models.ForeignKey('UserInfo', models.DO_NOTHING)
+    plike = models.IntegerField(db_column='Plike', blank=True, null=True)  # Field name made lowercase.
+    pstate = models.IntegerField(db_column='Pstate', blank=True, null=True)  # Field name made lowercase.
+    ptime = models.DateField(db_column='Ptime', blank=True, null=True)  # Field name made lowercase.
+    upoint = models.IntegerField(db_column='Upoint', blank=True, null=True)  # Field name made lowercase.
+    problem_exlain = models.CharField(max_length=5000)
+

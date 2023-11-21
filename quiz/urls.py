@@ -6,6 +6,6 @@ from .views import *
 
 urlpatterns = [
     path("hello/", helloAPI),
-    path("<int:id>/", randomQuiz),
-    path("pro/", ProblemListSortedbyTime),
+    #path("<int:id>/", randomQuiz),
+    path("<int:Sid>/<int:loadcnt>", SubjectProblemListSortbyTime),
 ]
