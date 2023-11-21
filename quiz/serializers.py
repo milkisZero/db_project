@@ -7,7 +7,6 @@ from .models import *
 #         model = Quiz
 #         fields = ('title', 'body', 'answer')
 
-
 class UserInfoSerializers(serializers.ModelSerializer):
     class Meta:
         model = Quiz
