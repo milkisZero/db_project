@@ -9,7 +9,6 @@ urlpatterns = [
     #path("<int:id>/", randomQuiz),
     path("all/<int:loadcnt>/<int:sortmode>", AllProblemListSortby),
     path("subj/<int:Sid>/<int:loadcnt>/", SubjectProblemListSortbyTime),
-       #path("pro/", AllProblemListSortbyTime),
     path("detail/<int:pno>/", ProblemDetails),
     path("comm/<int:pno>/", CommentsInfo)
 ]

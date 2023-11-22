@@ -32,9 +32,3 @@ class CommentsSerializers(serializers.ModelSerializer):
     class Meta:
         model = Comments
         fields = ('pno', 'maker', 'comm', 'comm_time')
-
-# class ProblemPageSerializers(serializers.Serializer):
-#      class Meta:
-#         model = ProblemPage
-#         fields = ( 'ptime', 'pno', 'plike', 'pstate', 'problem_exlain' ,'upoint', 'maker', 'sub')
-
