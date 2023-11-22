@@ -4,6 +4,8 @@ from .models import *
 from .serializers import *
 import random
 import pymysql
+import json
+from django.http import JsonResponse
 
 # Create your views here.
 @api_view(['GET'])
@@ -70,6 +72,7 @@ def AllProblemListSortby(request, loadcnt, sortmode):
         ORDER BY PI.{orderby} DESC 
         LIMIT {loadcntstr} """.format(orderby = order, loadcntstr=str(loadcnt) + ", 10")
     
+    
     curs.execute(sql)
     rows = curs.fetchall()
     conn.close()
@@ -87,6 +90,10 @@ def AllProblemListSortby(request, loadcnt, sortmode):
                 'sname' : row[8],
             } for row in rows
     ]
+
+    return JsonResponse(json_data, safe=False)
+
+
 
 @api_view(['GET'])
 def ProblemDetails(request, pno):
