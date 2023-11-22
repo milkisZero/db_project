@@ -66,12 +66,15 @@ def AllProblemListSortbyTime(request, loadcnt):
     conn = pymysql.connect(host='database-1.czenntejef9p.ap-northeast-2.rds.amazonaws.com',
                         user='admin', password='admin1234', db='db', charset='utf8')
     curs = conn.cursor()
+    loadcnt *= 10
+
     sql = """
         SELECT PI.PTime, PI.Pno, PI.Plike, PI.Pstate, PC.problem_explain, U.Upoint, U.Uname, S.Sid, S.Sname
         FROM Problem_info AS PI, Problem_content AS PC, User_info AS U, Subjects AS S
         WHERE  PI.Sub_id=S.Sid && PI.maker_id=U.id && PI.Pno=PC.Pno
         ORDER BY PI.Ptime DESC 
-       """
+        LIMIT {loadcntstr} """.format(loadcntstr=str(loadcnt) + "," + str(loadcnt+10))
+    
     curs.execute(sql)
     rows = curs.fetchall()
     conn.close()
