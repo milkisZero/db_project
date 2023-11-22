@@ -19,13 +19,18 @@ sql = """
         ORDER BY PI.Ptime DESC 
         LIMIT {loadcntstr}""".format(Sidstr=str(Sid), loadcntstr=(str(loadcnt) + "," + str(loadcnt+10)))
 
-print(sql)
-
+sql = """
+        SELECT *
+        FROM Problem_info
+        ORDER BY Ptime DESC
+"""
 curs.execute(sql)
 
-for i in range(curs.rowcount):
-    rows = curs.fetchone()
-    print(rows)
+print(curs.fetchall())
+
+#for i in range(curs.rowcount):
+    #rows = curs.fetchone()
+   # print(rows)
 
 #rows = curs.fetchall()
 #print (rows)
