@@ -22,12 +22,15 @@ def AllProblemListSortbyTime(request, loadcnt):
     conn = pymysql.connect(host='database-1.czenntejef9p.ap-northeast-2.rds.amazonaws.com',
                         user='admin', password='admin1234', db='db', charset='utf8')
     curs = conn.cursor()
+    loadcnt *= 10
+
     sql = """
-        SELECT PI.PTime, PI.Pno, PI.Plike, PI.Pstate, U.Upoint, U.Uname, S.Sname
-        FROM Problem_info AS PI, User_info AS U, Subjects AS S
-        WHERE  PI.Sub_id=S.Sid && PI.maker_id=U.id 
+        SELECT PI.PTime, PI.Pno, PI.Plike, PI.Pstate, PC.problem_explain, U.Upoint, U.Uname, S.Sid, S.Sname
+        FROM Problem_info AS PI, Problem_content AS PC, User_info AS U, Subjects AS S
+        WHERE  PI.Sub_id=S.Sid && PI.maker_id=U.id && PI.Pno=PC.Pno
         ORDER BY PI.Ptime DESC 
         LIMIT {loadcntstr} """.format(loadcntstr=str(loadcnt) + "," + str(loadcnt+10))
+    
     curs.execute(sql)
     rows = curs.fetchall()
     conn.close()
@@ -38,9 +41,11 @@ def AllProblemListSortbyTime(request, loadcnt):
                 'pno' : row[1],
                 'plike' : row[2],
                 'pstate' : row[3],
-                'upoint' : row[4],
-                'uname' : row[5],
-                'sname' : row[6],
+                'problem_explain' : row[4],
+                'upoint' : row[5],
+                'uname' : row[6],
+                'sid' : row[7],
+                'sname' : row[8],
             } for row in rows
     ]
 
