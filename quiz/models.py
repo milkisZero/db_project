@@ -175,24 +175,3 @@ class DjangoSession(models.Model):
     class Meta:
         managed = False
         db_table = 'django_session'
-
-
-class QuizQuiz(models.Model):
-    id = models.BigAutoField(primary_key=True)
-    title = models.CharField(max_length=200)
-    body = models.TextField()
-    answer = models.IntegerField()
-
-    class Meta:
-        managed = False
-        db_table = 'quiz_quiz'
-
-# class ProblemPage(models.Model):
-#     pno = models.IntegerField(blank=True, null=True)  # Field name made lowercase.
-#     sub = models.CharField (max_length=30, blank=True, null=True)
-#     maker =  models.CharField(max_length=30)
-#     plike = models.IntegerField( blank=True, null=True)  # Field name made lowercase.
-#     pstate = models.IntegerField(blank=True, null=True)  # Field name made lowercase.
-#     ptime = models.DateTimeField(blank=True, null=True)  # Field name made lowercase.
-#     upoint = models.IntegerField(blank=True, null=True)  # Field name made lowercase.
-#     problem_exlain = models.CharField(max_length=5000)
