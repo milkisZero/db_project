@@ -10,19 +10,13 @@ class QuizSerializers(serializers.ModelSerializer):
 
 class UserInfoSerializers(serializers.ModelSerializer):
     class Meta:
-        model = Quiz
-        fields = ('title', 'body', 'answer')
-
-
-class UserInfoSerializers(serializers.ModelSerializer):
-    class Meta:
         model = UserInfo
         fields = ('id', 'pwd', 'uname', 'email', 'upoint')
 
 class ProblemInfoSerializers(serializers.ModelSerializer):
     class Meta:
         model = ProblemInfo
-        fields = ('pno', 'sub', 'maker', 'plike', 'pstate', 'ptime')
+        fields = ('ptime', 'pno', 'sub', 'maker', 'plike', 'pstate')
 
 class ProblemContentSerializers(serializers.ModelSerializer):
     class Meta:
@@ -39,8 +33,8 @@ class CommentsSerializers(serializers.ModelSerializer):
         model = Comments
         fields = ('pno', 'maker', 'comm', 'comm_time')
 
+# class ProblemPageSerializers(serializers.Serializer):
+#      class Meta:
+#         model = ProblemPage
+#         fields = ( 'ptime', 'pno', 'plike', 'pstate', 'problem_exlain' ,'upoint', 'maker', 'sub')
 
-class ProblemPageSerializers(serializers.ModelSerializer):
-     class Meta:
-        models = ProblemPage
-        fields = ('pno', 'sub', 'maker', 'upoint', 'plike', 'pstate', 'ptime', 'problem_exlain' )

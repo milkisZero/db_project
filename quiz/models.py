@@ -34,7 +34,7 @@ class ProblemInfo(models.Model):
     maker = models.ForeignKey('UserInfo', models.DO_NOTHING)
     plike = models.IntegerField(db_column='Plike', blank=True, null=True)  # Field name made lowercase.
     pstate = models.IntegerField(db_column='Pstate', blank=True, null=True)  # Field name made lowercase.
-    ptime = models.DateField(db_column='Ptime', blank=True, null=True)  # Field name made lowercase.
+    ptime = models.DateTimeField(db_column='Ptime', blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
         managed = False
@@ -62,11 +62,7 @@ class UserInfo(models.Model):
         db_table = 'User_info'
 
 
-
-
-
-
-
+# django
 class AuthGroup(models.Model):
     name = models.CharField(unique=True, max_length=150)
 
@@ -191,15 +187,12 @@ class QuizQuiz(models.Model):
         managed = False
         db_table = 'quiz_quiz'
 
-
-
-class ProblemPage(models.Model):
-    pno = models.IntegerField(db_column='Pno', primary_key=True)  # Field name made lowercase.
-    sub = models.ForeignKey('Subjects', models.DO_NOTHING, db_column='Sub_id')  # Field name made lowercase.
-    maker = models.ForeignKey('UserInfo', models.DO_NOTHING)
-    plike = models.IntegerField(db_column='Plike', blank=True, null=True)  # Field name made lowercase.
-    pstate = models.IntegerField(db_column='Pstate', blank=True, null=True)  # Field name made lowercase.
-    ptime = models.DateField(db_column='Ptime', blank=True, null=True)  # Field name made lowercase.
-    upoint = models.IntegerField(db_column='Upoint', blank=True, null=True)  # Field name made lowercase.
-    problem_exlain = models.CharField(max_length=5000)
-
+# class ProblemPage(models.Model):
+#     pno = models.IntegerField(blank=True, null=True)  # Field name made lowercase.
+#     sub = models.CharField (max_length=30, blank=True, null=True)
+#     maker =  models.CharField(max_length=30)
+#     plike = models.IntegerField( blank=True, null=True)  # Field name made lowercase.
+#     pstate = models.IntegerField(blank=True, null=True)  # Field name made lowercase.
+#     ptime = models.DateTimeField(blank=True, null=True)  # Field name made lowercase.
+#     upoint = models.IntegerField(blank=True, null=True)  # Field name made lowercase.
+#     problem_exlain = models.CharField(max_length=5000)
