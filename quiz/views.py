@@ -1,11 +1,14 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from rest_framework.views import APIView
 from .models import *
 from .serializers import *
 import random
 import pymysql
 import json
 from django.http import JsonResponse
+from django.views import View
+
 
 # Create your views here.
 @api_view(['GET'])
@@ -79,18 +82,19 @@ def AllProblemListSortby(request, loadcnt, sortmode):
 
     json_data = [
             {
-                'ptime' : row[0],
-                'pno' : row[1],
-                'plike' : row[2],
-                'pstate' : row[3],
-                'problem_explain' : row[4],
-                'upoint' : row[5],
-                'uname' : row[6],
-                'sid' : row[7],
-                'sname' : row[8],
+                "ptime" : row[0],
+                "pno" : row[1],
+                "plike" : row[2],
+                "pstate" : row[3],
+                "problem_explain" : row[4],
+                "upoint" : row[5],
+                "uname" : row[6],
+                "sid" : row[7],
+                "sname" : row[8],
             } for row in rows
     ]
 
+  
     return JsonResponse(json_data, safe=False)
 
 
@@ -125,7 +129,7 @@ def CommentsInfo(request, pno):
     conn = pymysql.connect(host='database-1.czenntejef9p.ap-northeast-2.rds.amazonaws.com',
                         user='admin', password='admin1234', db='db', charset='utf8')
     curs = conn.cursor()
-    
+
     sql = """
         SELECT maker_id, comm, comm_time
         FROM Comments
@@ -144,5 +148,38 @@ def CommentsInfo(request, pno):
                 'comm_time' : row[2],
             } for row in rows
     ]
-
+    
     return Response(json_data)
+
+class PostTest(APIView):
+    def post(self, request):
+        print("asdf")
+        return Response("OKOKOKOK")
+
+class MakeProblemInfo(APIView):
+    def post(self, request):
+        serializer = ProblemInfoSerializers(data = request.data, many = True)
+        if(serializer.is_valid()):
+            serializer.save()   
+            return Response(serializer.data ,status=200)
+        return Response("Error")
+        #return Response(serializer.errors ,status=status.HTTP_400_BAD_REQUEST)
+
+
+class MakeProblemContent(APIView):
+    @api_view(['POST'])
+    def post(self, request):
+        serializer = ProblemContentSerializers(data = request.data, many = True)
+        if(serializer.is_valid()):
+            serializer.save()   
+            return Response(serializer.data ,status=200)
+        return Response("Error")
+        #return Response(serializer.errors ,status=status.HTTP_400_BAD_REQUEST)
+
+class MakeComment(APIView):
+      def post(self, request):
+        serializer = CommentsSerializers(data = request.data, many = True)
+        if(serializer.is_valid()):
+            serializer.save()   
+            return Response(serializer.data ,status=200)
+        return Response("Error")

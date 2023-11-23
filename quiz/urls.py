@@ -10,5 +10,9 @@ urlpatterns = [
     path("all/<int:loadcnt>/<int:sortmode>", AllProblemListSortby),
     path("subj/<int:Sid>/<int:loadcnt>/", SubjectProblemListSortbyTime),
     path("detail/<int:pno>/", ProblemDetails),
-    path("comm/<int:pno>/", CommentsInfo)
+    path("comm/<int:pno>/", CommentsInfo),
+    path("make/pi/", MakeProblemInfo.as_view(), name = "makepi"),
+    path("make/pc/", MakeProblemContent.as_view(), name = "makepc"),
+    path("make/comm/", MakeComment.as_view()),
+    path("test/", PostTest.as_view())
 ]
