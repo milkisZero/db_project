@@ -152,6 +152,9 @@ def CommentsInfo(request, pno):
     return Response(json_data)
 
 class PostTest(APIView):
+    def get(self, request):
+        return Response("OKOK1")
+
     def post(self, request):
         print("asdf")
         return Response("OKOKOKOK")
