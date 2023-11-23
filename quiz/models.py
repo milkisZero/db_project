@@ -1,6 +1,7 @@
 from django.db import models
 
 # Create your models here.
+
 class Quiz(models.Model):
     title = models.CharField(max_length=200)
     body = models.TextField()
@@ -11,15 +12,16 @@ class Comments(models.Model):
     pno = models.ForeignKey('ProblemInfo', models.DO_NOTHING, db_column='Pno')  # Field name made lowercase.
     maker = models.ForeignKey('UserInfo', models.DO_NOTHING)
     comm = models.CharField(max_length=300, blank=True, null=True)
-    comm_time = models.DateField()
+    comm_time = models.DateTimeField()
 
     class Meta:
         managed = False
         db_table = 'Comments'
 
+
 class ProblemContent(models.Model):
     pno = models.ForeignKey('ProblemInfo', models.DO_NOTHING, db_column='Pno')  # Field name made lowercase.
-    problem_exlain = models.CharField(max_length=5000)
+    problem_explain = models.CharField(max_length=5000)
     answer = models.CharField(max_length=30)
     ans_explain = models.CharField(max_length=5000)
 
@@ -34,7 +36,7 @@ class ProblemInfo(models.Model):
     maker = models.ForeignKey('UserInfo', models.DO_NOTHING)
     plike = models.IntegerField(db_column='Plike', blank=True, null=True)  # Field name made lowercase.
     pstate = models.IntegerField(db_column='Pstate', blank=True, null=True)  # Field name made lowercase.
-    ptime = models.DateField(db_column='Ptime', blank=True, null=True)  # Field name made lowercase.
+    ptime = models.DateTimeField(db_column='Ptime', blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
         managed = False
@@ -60,11 +62,6 @@ class UserInfo(models.Model):
     class Meta:
         managed = False
         db_table = 'User_info'
-
-
-
-
-
 
 
 class AuthGroup(models.Model):
@@ -179,14 +176,3 @@ class DjangoSession(models.Model):
     class Meta:
         managed = False
         db_table = 'django_session'
-
-
-class QuizQuiz(models.Model):
-    id = models.BigAutoField(primary_key=True)
-    title = models.CharField(max_length=200)
-    body = models.TextField()
-    answer = models.IntegerField()
-
-    class Meta:
-        managed = False
-        db_table = 'quiz_quiz'
