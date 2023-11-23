@@ -152,7 +152,7 @@ def CommentsInfo(request, pno):
     return Response(json_data)
 
 class PostTest(APIView):
-    def get(self, request):
+    def get(self, request): 
         return Response("OKOK1")
 
     def post(self, request):
@@ -160,6 +160,9 @@ class PostTest(APIView):
         return Response("OKOKOKOK")
 
 class MakeProblemInfo(APIView):
+    def get(self, request): 
+        return Response("OKOK1")
+    
     def post(self, request):
         serializer = ProblemInfoSerializers(data = request.data, many = True)
         if(serializer.is_valid()):
@@ -170,6 +173,9 @@ class MakeProblemInfo(APIView):
 
 
 class MakeProblemContent(APIView):
+    def get(self, request): 
+        return Response("OKOK1")
+     
     @api_view(['POST'])
     def post(self, request):
         serializer = ProblemContentSerializers(data = request.data, many = True)
@@ -180,9 +186,13 @@ class MakeProblemContent(APIView):
         #return Response(serializer.errors ,status=status.HTTP_400_BAD_REQUEST)
 
 class MakeComment(APIView):
-      def post(self, request):
+    def get(self, request): 
+        return Response("OKOK1")
+    
+    def post(self, request):
         serializer = CommentsSerializers(data = request.data, many = True)
-        if(serializer.is_valid()):
-            serializer.save()   
-            return Response(serializer.data ,status=200)
+        #if(serializer.is_valid()):
+         #   serializer.save()   
+          #  return Response(serializer.data ,status=200)
+        print(serializer)
         return Response("Error")
