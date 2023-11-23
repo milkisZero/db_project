@@ -1,6 +1,7 @@
 from django.db import models
 
 # Create your models here.
+
 class Quiz(models.Model):
     title = models.CharField(max_length=200)
     body = models.TextField()
@@ -11,15 +12,16 @@ class Comments(models.Model):
     pno = models.ForeignKey('ProblemInfo', models.DO_NOTHING, db_column='Pno')  # Field name made lowercase.
     maker = models.ForeignKey('UserInfo', models.DO_NOTHING)
     comm = models.CharField(max_length=300, blank=True, null=True)
-    comm_time = models.DateField()
+    comm_time = models.DateTimeField()
 
     class Meta:
         managed = False
         db_table = 'Comments'
 
+
 class ProblemContent(models.Model):
     pno = models.ForeignKey('ProblemInfo', models.DO_NOTHING, db_column='Pno')  # Field name made lowercase.
-    problem_exlain = models.CharField(max_length=5000)
+    problem_explain = models.CharField(max_length=5000)
     answer = models.CharField(max_length=30)
     ans_explain = models.CharField(max_length=5000)
 
@@ -62,7 +64,6 @@ class UserInfo(models.Model):
         db_table = 'User_info'
 
 
-# django
 class AuthGroup(models.Model):
     name = models.CharField(unique=True, max_length=150)
 

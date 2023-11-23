@@ -191,24 +191,8 @@ class MakeProblemContent(APIView):
 def postComm(request):
     reqData = request.data
     serializer = CommentsSerializers(data=reqData)
-    print(request.data)
-    if serializer.is_valid():
+    if serializer.is_valid():    
         serializer.save()
-        print(serializer.data)
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(status=status.HTTP_201_CREATED)
+    return Response(status=status.HTTP_400_BAD_REQUEST)
 
-# class MakeComment(APIView):
-#     def get(self, request): 
-#         return Response("OKOK1")
-    
-#     def post(self, request):
-#         headers = {'Context-Type': 'application/json; charset=utf-8'}
-        
-#         serializer = CommentsSerializers(data = request.data, many = True)
-#         print(serializer)
-#         return Response("Error")
-#         #if(serializer.is_valid()):
-#          #   serializer.save()   
-#           #  return Response(serializer.data ,status=200)
-        
