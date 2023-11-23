@@ -196,3 +196,14 @@ def postComm(request):
         return Response(status=status.HTTP_201_CREATED)
     return Response(status=status.HTTP_400_BAD_REQUEST)
 
+class MakeUserInfo(APIView):
+    @api_view(['POST'])
+    def post(self, request):
+        if request.method == 'POST':
+            serializers = UserInfoSerializers(data=request.data)
+            if serializers.is_vaild():
+                serializers.save()
+                return Response(serializer.data, status=200)
+            else:
+                print(serializers.errors)
+        return Response(serializers.errors, status=400)
