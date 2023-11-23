@@ -1,5 +1,5 @@
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, parser_classes
 from rest_framework.views import APIView
 from .models import *
 from .serializers import *
@@ -9,7 +9,7 @@ import json
 from django.http import JsonResponse
 from django.views import View
 from rest_framework import status
-
+from rest_framework.parsers import JSONParser
 
 # Create your views here.
 @api_view(['GET'])
@@ -187,6 +187,7 @@ class MakeProblemContent(APIView):
         #return Response(serializer.errors ,status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['POST'])
+@parser_classes([JSONParser])
 def postComm(request):
     reqData = request.data
     serializer = CommentsSerializers(data=reqData)
