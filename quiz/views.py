@@ -8,6 +8,7 @@ import pymysql
 import json
 from django.http import JsonResponse
 from django.views import View
+from rest_framework import status
 
 
 # Create your views here.
@@ -185,15 +186,26 @@ class MakeProblemContent(APIView):
         return Response("Error")
         #return Response(serializer.errors ,status=status.HTTP_400_BAD_REQUEST)
 
-class MakeComment(APIView):
-    def get(self, request): 
-        return Response("OKOK1")
+@api_view(['POST'])
+def postComm(request):
+    reqData = request.data
+    serializer = CommentsSerializers(data=reqData)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+# class MakeComment(APIView):
+#     def get(self, request): 
+#         return Response("OKOK1")
     
-    def post(self, request):
-        serializer = CommentsSerializers(data = request.data, many = True)
-        print(serializer)
-        return Response("Error")
-        #if(serializer.is_valid()):
-         #   serializer.save()   
-          #  return Response(serializer.data ,status=200)
+#     def post(self, request):
+#         headers = {'Context-Type': 'application/json; charset=utf-8'}
+        
+#         serializer = CommentsSerializers(data = request.data, many = True)
+#         print(serializer)
+#         return Response("Error")
+#         #if(serializer.is_valid()):
+#          #   serializer.save()   
+#           #  return Response(serializer.data ,status=200)
         

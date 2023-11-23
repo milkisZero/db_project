@@ -1,6 +1,11 @@
 from django.test import TestCase
 import pymysql
 
+dic =  {'pno' : 30, 'maker' : 'mollugorithm', 'comm' :"안녕하세요", 'comm_time' : "2023-11-15T22:45:30"}
+
+print(str(dic))
+
+
 conn = pymysql.connect(host='database-1.czenntejef9p.ap-northeast-2.rds.amazonaws.com', 
                         user='admin', password='admin1234', db='db', charset='utf8')
 curs = conn.cursor()

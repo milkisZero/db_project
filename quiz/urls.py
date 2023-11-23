@@ -13,6 +13,6 @@ urlpatterns = [
     path("comm/<int:pno>/", CommentsInfo),
     path("make/pi/", MakeProblemInfo.as_view(), name = "makepi"),
     path("make/pc/", MakeProblemContent.as_view(), name = "makepc"),
-    path("make/comm/", MakeComment.as_view()),
+    path("make/comm/", postComm),
     path("test/", PostTest.as_view())
 ]
