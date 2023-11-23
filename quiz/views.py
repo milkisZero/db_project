@@ -156,7 +156,7 @@ class PostTest(APIView):
         return Response("OKOK1")
 
     def post(self, request):
-        print("asdf")
+        print(request.data)
         return Response("OKOKOKOK")
 
 class MakeProblemInfo(APIView):
