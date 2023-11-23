@@ -191,12 +191,9 @@ class MakeComment(APIView):
     
     def post(self, request):
         serializer = CommentsSerializers(data = request.data, many = True)
-        if(serializer.is_valid()):
-            serializer.save()   
-            return Response(serializer.data ,status=200)
+        print(serializer)
         return Response("Error")
         #if(serializer.is_valid()):
          #   serializer.save()   
           #  return Response(serializer.data ,status=200)
-        print(serializer)
-        return Response("Error")
+        
