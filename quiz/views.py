@@ -1,6 +1,5 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, parser_classes
-from rest_framework.views import APIView
 from .models import *
 from .serializers import *
 import random
@@ -150,42 +149,31 @@ def CommentsInfo(request, pno):
     
     return Response(json_data)
 
-class PostTest(APIView):
-    def get(self, request): 
-        return Response("OKOK1")
+@api_view(['POST'])
+@parser_classes([JSONParser])
+def postProblemInfo(request):
+    reqData = request.data
+    serializer = ProblemInfoSerializers(data=reqData)
+    if serializer.is_valid():    
+        serializer.save()
+        return Response(status=status.HTTP_201_CREATED)
+    return Response(status=status.HTTP_400_BAD_REQUEST)
 
-    def post(self, request):
-        print(request.data)
-        return Response("OKOKOKOK")
-
-class MakeProblemInfo(APIView):
-    def get(self, request): 
-        return Response("OKOK1")
-    
-    def post(self, request):
-        serializer = ProblemInfoSerializers(data = request.data, many = True)
-        if(serializer.is_valid()):
-            serializer.save()   
-            return Response(serializer.data ,status=200)
-        return Response("Error")
-        #return Response(serializer.errors ,status=status.HTTP_400_BAD_REQUEST)
-
-class MakeProblemContent(APIView):
-    def get(self, request): 
-        return Response("OKOK1")
-     
-    @api_view(['POST'])
-    def post(self, request):
-        serializer = ProblemContentSerializers(data = request.data, many = True)
-        if(serializer.is_valid()):
-            serializer.save()   
-            return Response(serializer.data ,status=200)
-        return Response("Error")
-        #return Response(serializer.errors ,status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['POST'])
 @parser_classes([JSONParser])
-def postComm(request):
+def postProblemContent(request):
+    reqData = request.data
+    serializer = ProblemContentSerializers(data=reqData)
+    if serializer.is_valid():    
+        serializer.save()
+        return Response(status=status.HTTP_201_CREATED)
+    return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+@parser_classes([JSONParser])
+def postComments(request):
     reqData = request.data
     serializer = CommentsSerializers(data=reqData)
     if serializer.is_valid():    
@@ -195,7 +183,7 @@ def postComm(request):
 
 @api_view(['POST'])
 @parser_classes([JSONParser])
-def postUI(request):
+def postUserInfo(request):
     serializer = UserInfoSerializers(data=request.data)
     if serializer.is_valid():    
         serializer.save()
