@@ -98,8 +98,6 @@ def AllProblemListSortby(request, loadcnt, sortmode):
   
     return JsonResponse(json_data, safe=False)
 
-
-
 @api_view(['GET'])
 def ProblemDetails(request, pno):
     conn = pymysql.connect(host='database-1.czenntejef9p.ap-northeast-2.rds.amazonaws.com',
@@ -172,7 +170,6 @@ class MakeProblemInfo(APIView):
         return Response("Error")
         #return Response(serializer.errors ,status=status.HTTP_400_BAD_REQUEST)
 
-
 class MakeProblemContent(APIView):
     def get(self, request): 
         return Response("OKOK1")
@@ -196,14 +193,11 @@ def postComm(request):
         return Response(status=status.HTTP_201_CREATED)
     return Response(status=status.HTTP_400_BAD_REQUEST)
 
-class MakeUserInfo(APIView):
-    @api_view(['POST'])
-    def post(self, request):
-        if request.method == 'POST':
-            serializers = UserInfoSerializers(data=request.data)
-            if serializers.is_vaild():
-                serializers.save()
-                return Response(serializer.data, status=200)
-            else:
-                print(serializers.errors)
-        return Response(serializers.errors, status=400)
+@api_view(['POST'])
+@parser_classes([JSONParser])
+def postUI(request):
+    serializer = UserInfoSerializers(data=request.data)
+    if serializer.is_valid():    
+        serializer.save()
+        return Response(status=status.HTTP_201_CREATED)
+    return Response(status=status.HTTP_400_BAD_REQUEST)

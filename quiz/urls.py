@@ -15,5 +15,5 @@ urlpatterns = [
     path("make/pc/", MakeProblemContent.as_view(), name = "makepc"),
     path("make/comm/", postComm),
     path("test/", PostTest.as_view()),
-    path("makeui/", MakeUserInfo.as_view(), name = "makeui"),
+    path("make/ui/", postUI),
 ]
