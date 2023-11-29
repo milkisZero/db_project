@@ -164,6 +164,17 @@ def UserCheck(request):
         print(3)
         conn.close()
         return Response(status=status.HTTP_400_BAD_REQUEST)
+    
+
+@api_view(['GET'])
+def UpdateCnts(request, spno, isAC):
+    updateRow = ProblemInfo.objects.get(pno=spno)
+    
+    updateRow.trycnt += 1
+    if(isAC):
+        updateRow.accnt += 1
+    updateRow.save()
+    return Response(status=status.HTTP_201_CREATED)
 
 @api_view(['POST'])
 @parser_classes([JSONParser])

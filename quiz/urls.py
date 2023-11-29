@@ -9,6 +9,7 @@ urlpatterns = [
     path("subj/<int:Sid>/<int:loadcnt>/", SubjectProblemListSortbyTime),
     path("detail/<int:pno>/", ProblemDetails),
     path("comm/<int:pno>/", CommentsInfo),
+    path("update/<int:spno>/<int:isAC>/", UpdateCnts),
     path("make/pi/", postProblemInfo),
     path("make/pc/", postProblemContent),
     path("make/comm/", postComments),
