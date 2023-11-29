@@ -156,6 +156,11 @@ def UpdateCnts(request, spno, isAC):
     updateRow.save()
     return Response(status=status.HTTP_201_CREATED)
 
+@api_view(['GET'])
+def getUserInfo(request, user_id):
+    users = UserInfo.objects.get(id = user_id)
+    serializer = UserInfoSerializers(users, many=True)
+    return JsonResponse(serializer.data, safe=False)
 
 @api_view(['POST'])
 @parser_classes([JSONParser])
