@@ -191,7 +191,7 @@ def postUserInfo(request):
 
 @api_view(['POST'])
 def UserCheck(request):
-    print(request)
+    print(data=request)
     conn = pymysql.connect(host='database-1.czenntejef9p.ap-northeast-2.rds.amazonaws.com',
                         user='admin', password='admin1234', db='db', charset='utf8')
     print(0)
