@@ -144,26 +144,6 @@ def CommentsInfo(request, pno):
     ]
     
     return JsonResponse(json_data, safe=False)
-
-@api_view(['GET'])
-def UserCheck(request):
-    print(request)
-    conn = pymysql.connect(host='database-1.czenntejef9p.ap-northeast-2.rds.amazonaws.com',
-                        user='admin', password='admin1234', db='db', charset='utf8')
-    print(0)
-    curs = conn.cursor()
-    pwd = """SELECT pwd    FROM User_info    WHERE id={sid}""".format(sid = str(request.id))
-    print(1)
-    if (pwd == request.pwd):
-        print(2)
-        sql = """SELECT *    FROM User_info    WHERE id={sid}""".format(sid = str(request.id))
-        serializers = UserInfoSerializers(data=sql.data)
-        conn.close()
-        return JsonResponser(serializers, safe=False)
-    else:
-        print(3)
-        conn.close()
-        return Response(status=status.HTTP_400_BAD_REQUEST)
     
     
 @api_view(['GET'])
@@ -222,20 +202,30 @@ def postUserInfo(request):
 
 @api_view(['POST'])
 def UserCheck(request):
-    print(data=request)
-    conn = pymysql.connect(host='database-1.czenntejef9p.ap-northeast-2.rds.amazonaws.com',
-                        user='admin', password='admin1234', db='db', charset='utf8')
-    print(0)
-    curs = conn.cursor()
-    pwd = """SELECT pwd    FROM User_info    WHERE id={sid}""".format(sid = str(request.id))
-    print(1)
-    if (pwd == request.pwd):
-        print(2)
-        sql = """SELECT *    FROM User_info    WHERE id={sid}""".format(sid = str(request.id))
-        serializers = UserInfoSerializers(data=sql.data)
-        conn.close()
-        return JsonResponser(serializers, safe=False)
-    else:
-        print(3)
-        conn.close()
-        return Response(status=status.HTTP_400_BAD_REQUEST)
+    input_data = request.data
+    uid = input_data.get('id', '')
+    upwd = input_data.get('pwd', '')
+    print(uid, upwd)
+    user = UserInfo.objects.get(id=uid, pwd=upwd)
+    print(user)
+    if UserInfo.DoesNotExist:
+        return Response(status=status.HTTP_401_UNAUTHORIZED)
+    serializers = UserInfoSerializers(user)
+    return Response(status=status.HTTP_200_OK)
+    
+    # conn = pymysql.connect(host='database-1.czenntejef9p.ap-northeast-2.rds.amazonaws.com',
+    #                     user='admin', password='admin1234', db='db', charset='utf8')
+    # print(0)
+    # curs = conn.cursor()
+    # pwd = """SELECT pwd    FROM User_info    WHERE id={sid}""".format(sid = str(request.id))
+    # print(1)
+    # if (pwd == request.pwd):
+    #     print(2)
+    #     sql = """SELECT *    FROM User_info    WHERE id={sid}""".format(sid = str(request.id))
+    #     serializers = UserInfoSerializers(data=sql.data)
+    #     conn.close()
+    #     return JsonResponser(serializers, safe=False)
+    # else:
+    #     print(3)
+    #     conn.close()
+    #     return Response(status=status.HTTP_400_BAD_REQUEST)
