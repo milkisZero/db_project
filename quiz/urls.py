@@ -13,4 +13,5 @@ urlpatterns = [
     path("make/pc/", postProblemContent),
     path("make/comm/", postComments),
     path("make/ui/", postUserInfo),
+    path("get/<str:rqid>/", UserInfo),
 ]
