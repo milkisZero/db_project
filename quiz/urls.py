@@ -15,5 +15,4 @@ urlpatterns = [
     path("make/comm/", postComments),
     path("make/ui/", postUserInfo),
     path("check/user/", UserCheck),
-    path("user/id/", getUserInfo),
 ]
