@@ -165,7 +165,7 @@ def UserCheck(request):
         conn.close()
         return Response(status=status.HTTP_400_BAD_REQUEST)
     
-
+    
 @api_view(['GET'])
 def UpdateCnts(request, spno, isAC):
     updateRow = ProblemInfo.objects.get(pno=spno)
@@ -175,6 +175,7 @@ def UpdateCnts(request, spno, isAC):
         updateRow.accnt += 1
     updateRow.save()
     return Response(status=status.HTTP_201_CREATED)
+
 
 @api_view(['POST'])
 @parser_classes([JSONParser])
@@ -217,3 +218,24 @@ def postUserInfo(request):
         serializer.save()
         return Response(status=status.HTTP_201_CREATED)
     return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+def UserCheck(request):
+    print(request)
+    conn = pymysql.connect(host='database-1.czenntejef9p.ap-northeast-2.rds.amazonaws.com',
+                        user='admin', password='admin1234', db='db', charset='utf8')
+    print(0)
+    curs = conn.cursor()
+    pwd = """SELECT pwd    FROM User_info    WHERE id={sid}""".format(sid = str(request.id))
+    print(1)
+    if (pwd == request.pwd):
+        print(2)
+        sql = """SELECT *    FROM User_info    WHERE id={sid}""".format(sid = str(request.id))
+        serializers = UserInfoSerializers(data=sql.data)
+        conn.close()
+        return JsonResponser(serializers, safe=False)
+    else:
+        print(3)
+        conn.close()
+        return Response(status=status.HTTP_400_BAD_REQUEST)
