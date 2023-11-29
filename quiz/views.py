@@ -30,15 +30,17 @@ def SubjectProblemListSortbyTime(request, Sid, loadcnt):
 
     json_data = [
             {
-                'ptime' : row[0],
-                'pno' : row[1],
-                'plike' : row[2],
-                'pstate' : row[3],
-                'problem_explain' : row[4],
-                'upoint' : row[5],
-                'uname' : row[6],
-                'sid' : row[7],
-                'sname' : row[8],
+                "ptime" : row[0],
+                "pno" : row[1],
+                "plike" : row[2],
+                "pstate" : row[3],
+                "trycnt" : row[4],
+                "accnt" : row[5],
+                "problem_explain" : row[6],
+                "upoint" : row[7],
+                "uname" : row[8],
+                "sid" : row[9],
+                "sname" : row[10],
             } for row in rows
     ]
 
@@ -59,7 +61,7 @@ def AllProblemListSortby(request, loadcnt, sortmode):
         order = "Plike"
 
     sql = """
-        SELECT PI.PTime, PI.Pno, PI.Plike, PI.Pstate, PC.problem_explain, U.Upoint, U.Uname, S.Sid, S.Sname
+        SELECT PI.PTime, PI.Pno, PI.Plike, PI.Pstate, PI.TryCnt, PI.AcCnt, PC.problem_explain, U.Upoint, U.Uname, S.Sid, S.Sname
         FROM Problem_info AS PI, Problem_content AS PC, User_info AS U, Subjects AS S
         WHERE  PI.Sub_id=S.Sid && PI.maker_id=U.id && PI.Pno=PC.Pno
         ORDER BY PI.{orderby} DESC 
@@ -76,11 +78,13 @@ def AllProblemListSortby(request, loadcnt, sortmode):
                 "pno" : row[1],
                 "plike" : row[2],
                 "pstate" : row[3],
-                "problem_explain" : row[4],
-                "upoint" : row[5],
-                "uname" : row[6],
-                "sid" : row[7],
-                "sname" : row[8],
+                "trycnt" : row[4],
+                "accnt" : row[5],
+                "problem_explain" : row[6],
+                "upoint" : row[7],
+                "uname" : row[8],
+                "sid" : row[9],
+                "sname" : row[10],
             } for row in rows
     ]
 

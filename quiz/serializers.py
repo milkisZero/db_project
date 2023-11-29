@@ -10,7 +10,7 @@ class UserInfoSerializers(serializers.ModelSerializer):
 class ProblemInfoSerializers(serializers.ModelSerializer):
     class Meta:
         model = ProblemInfo
-        fields = ('ptime', 'pno', 'sub', 'maker', 'plike', 'pstate')
+        fields = ('ptime', 'pno', 'sub', 'maker', 'plike', 'pstate', 'trycnt', 'accnt')
 
 class ProblemContentSerializers(serializers.ModelSerializer):
     class Meta:

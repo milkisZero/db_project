@@ -31,6 +31,9 @@ class ProblemInfo(models.Model):
     plike = models.IntegerField(db_column='Plike', blank=True, null=True)  # Field name made lowercase.
     pstate = models.IntegerField(db_column='Pstate', blank=True, null=True)  # Field name made lowercase.
     ptime = models.DateTimeField(db_column='Ptime', blank=True, null=True)  # Field name made lowercase.
+    trycnt = models.IntegerField(db_column='TryCnt', blank=True, null=True)  # Field name made lowercase.
+    accnt = models.IntegerField(db_column='AcCnt', blank=True, null=True)  # Field name made lowercase.
+
 
     class Meta:
         managed = False
