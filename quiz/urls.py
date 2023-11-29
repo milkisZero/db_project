@@ -5,8 +5,6 @@ from django.urls import path, include
 from .views import *
 
 urlpatterns = [
-    path("hello/", helloAPI),
-    #path("<int:id>/", randomQuiz),
     path("all/<int:loadcnt>/<int:sortmode>", AllProblemListSortby),
     path("subj/<int:Sid>/<int:loadcnt>/", SubjectProblemListSortbyTime),
     path("detail/<int:pno>/", ProblemDetails),

@@ -12,17 +12,6 @@ from rest_framework.parsers import JSONParser
 
 # Create your views here.
 @api_view(['GET'])
-def helloAPI(request):
-    return Response("hello world!")
-
-@api_view(['GET'])
-def randomQuiz(request, id):
-    totalQuizs = Quiz.objects.all()
-    randomQuiz = random.sample(list(totalQuizs), id)
-    serializer = QuizSerializers(randomQuiz, many=True)
-    return Response(serializer.data) 
-
-@api_view(['GET'])
 def SubjectProblemListSortbyTime(request, Sid, loadcnt):
     conn = pymysql.connect(host='database-1.czenntejef9p.ap-northeast-2.rds.amazonaws.com',
                         user='admin', password='admin1234', db='db', charset='utf8')
@@ -53,7 +42,8 @@ def SubjectProblemListSortbyTime(request, Sid, loadcnt):
             } for row in rows
     ]
 
-    return Response(json_data)
+    return JsonResponse(json_data, safe=False)
+
 
 @api_view(['GET'])
 def AllProblemListSortby(request, loadcnt, sortmode):
@@ -120,7 +110,8 @@ def ProblemDetails(request, pno):
             } for row in rows
     ]
 
-    return Response(json_data)
+    return JsonResponse(json_data, safe=False)
+
 
 @api_view(['GET'])
 def CommentsInfo(request, pno):
@@ -147,7 +138,7 @@ def CommentsInfo(request, pno):
             } for row in rows
     ]
     
-    return Response(json_data)
+    return JsonResponse(json_data, safe=False)
 
 @api_view(['POST'])
 @parser_classes([JSONParser])
@@ -183,7 +174,7 @@ def postComments(request):
 
 @api_view(['POST'])
 @parser_classes([JSONParser])
-def postUserInfo(request):
+def postUserInfo(request):  
     serializer = UserInfoSerializers(data=request.data)
     if serializer.is_valid():    
         serializer.save()
