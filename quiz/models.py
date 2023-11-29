@@ -2,12 +2,6 @@ from django.db import models
 
 # Create your models here.
 
-class Quiz(models.Model):
-    title = models.CharField(max_length=200)
-    body = models.TextField()
-    answer = models.IntegerField()
-
-
 class Comments(models.Model):
     pno = models.ForeignKey('ProblemInfo', models.DO_NOTHING, db_column='Pno')  # Field name made lowercase.
     maker = models.ForeignKey('UserInfo', models.DO_NOTHING)
