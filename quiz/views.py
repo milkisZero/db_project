@@ -207,24 +207,7 @@ def UserCheck(request):
     upwd = input_data.get('pwd', '')
     try: 
         user = UserInfo.objects.get(id=uid, pwd=upwd)
-    except User.DoesNotExist:
+    except UserInfo.DoesNotExist:
         return Response(status=status.HTTP_401_UNAUTHORIZED)
     serializers = UserInfoSerializers(user)
     return Response(status=status.HTTP_200_OK)
-
-    # conn = pymysql.connect(host='database-1.czenntejef9p.ap-northeast-2.rds.amazonaws.com',
-    #                     user='admin', password='admin1234', db='db', charset='utf8')
-    # print(0)
-    # curs = conn.cursor()
-    # pwd = """SELECT pwd    FROM User_info    WHERE id={sid}""".format(sid = str(request.id))
-    # print(1)
-    # if (pwd == request.pwd):
-    #     print(2)
-    #     sql = """SELECT *    FROM User_info    WHERE id={sid}""".format(sid = str(request.id))
-    #     serializers = UserInfoSerializers(data=sql.data)
-    #     conn.close()
-    #     return JsonResponser(serializers, safe=False)
-    # else:
-    #     print(3)
-    #     conn.close()
-    #     return Response(status=status.HTTP_400_BAD_REQUEST)
