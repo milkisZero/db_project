@@ -1,14 +1,14 @@
+from rest_framework import status
+from rest_framework.parsers import JSONParser
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, parser_classes
+from django.http import JsonResponse
+from django.views import View
 from .models import *
 from .serializers import *
 import random
 import pymysql
 import json
-from django.http import JsonResponse
-from django.views import View
-from rest_framework import status
-from rest_framework.parsers import JSONParser
 
 # Create your views here.
 @api_view(['GET'])
@@ -87,6 +87,7 @@ def AllProblemListSortby(request, loadcnt, sortmode):
   
     return JsonResponse(json_data, safe=False)
 
+
 @api_view(['GET'])
 def ProblemDetails(request, pno):
     conn = pymysql.connect(host='database-1.czenntejef9p.ap-northeast-2.rds.amazonaws.com',
@@ -140,6 +141,7 @@ def CommentsInfo(request, pno):
     
     return JsonResponse(json_data, safe=False)
 
+
 @api_view(['POST'])
 @parser_classes([JSONParser])
 def postProblemInfo(request):
@@ -171,6 +173,7 @@ def postComments(request):
         serializer.save()
         return Response(status=status.HTTP_201_CREATED)
     return Response(status=status.HTTP_400_BAD_REQUEST)
+
 
 @api_view(['POST'])
 @parser_classes([JSONParser])
