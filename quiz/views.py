@@ -136,7 +136,8 @@ def CommentsInfo(request, pno):
     conn.close()
 
     json_data = [
-            {
+            {   
+                'pno' : pno,
                 'maker_id' : row[0],
                 'comm' : row[1],
                 'comm_time' : row[2],
