@@ -211,3 +211,9 @@ def UserCheck(request):
         return Response(status=status.HTTP_401_UNAUTHORIZED)
     serializers = UserInfoSerializers(user)
     return JsonResponse(serializers.data, status=status.HTTP_200_OK)
+
+@api_view(['GET'])
+def getLastPNum(reques):
+    problem = ProblemInfo.objects.order_by('-pno').first()
+    pnum = String(problem.pno + 1)
+    return Response(pnum)
