@@ -58,7 +58,6 @@ def SubjectProblemListSortbyTime(request, Sid, loadcnt):
     return Response(json_data)
 
 @api_view(['GET'])
-<<<<<<< HEAD
 def ProblemListSortedbyTime(request):
 
     strSql = """
@@ -204,10 +203,13 @@ class MakeProblemContent(APIView):
 @api_view(['POST'])
 @parser_classes([JSONParser])
 def postComm(request):
-    reqData = request.data
-    serializer = CommentsSerializers(data=reqData)
-    if serializer.is_valid():    
-        serializer.save()
-        return Response(status=status.HTTP_201_CREATED)
-    return Response(status=status.HTTP_400_BAD_REQUEST)
+    # reqData = request.data
+    # serializer = CommentsSerializers(data=reqData)
+    # if serializer.is_valid():    
+    #     serializer.save()
+    #     return Response(status=status.HTTP_201_CREATED)
+    # return Response(status=status.HTTP_400_BAD_REQUEST)
+
+    data = json.loads(request.body)
+    JsonResponse(status =200)
 
