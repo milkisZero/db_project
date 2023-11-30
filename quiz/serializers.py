@@ -25,4 +25,4 @@ class SubjectsSerializers(serializers.ModelSerializer):
 class CommentsSerializers(serializers.ModelSerializer):
     class Meta:
         model = Comments
-        fields = ('pno', 'maker', 'comm', 'comm_time')
+        fields = ('pno', 'maker_id', 'comm', 'comm_time')

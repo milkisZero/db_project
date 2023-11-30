@@ -185,10 +185,12 @@ def postProblemContent(request):
 @parser_classes([JSONParser])
 def postComments(request):
     reqData = request.data
-    dateData =   reqData.get('comm_time')
-    reqData['comm_time'] = datetime.strptime(dateData, '%Y-%m-%d %H:%M:%S')
+    dateData = reqData.get('comm_time')
+    reqData['comm_time'] = datetime.strptime(dateData, '%Y-%m-%dT%H:%M:%S')
 
     serializer = CommentsSerializers(data=reqData)
+
+    print(serializer)
     if serializer.is_valid():    
         serializer.save()
         return Response(status=status.HTTP_201_CREATED)
