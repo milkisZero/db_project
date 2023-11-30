@@ -9,6 +9,7 @@ from .serializers import *
 import random
 import pymysql
 import json
+from datetime import datetime
 
 # Create your views here.
 @api_view(['GET'])
@@ -184,6 +185,8 @@ def postProblemContent(request):
 @parser_classes([JSONParser])
 def postComments(request):
     reqData = request.data
+    reqData['comm_time'] = datetime.strptime(reqData['comm_time'], '%Y-%m-%d %H:%M:%S').date()
+
     serializer = CommentsSerializers(data=reqData)
     if serializer.is_valid():    
         serializer.save()
