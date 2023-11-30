@@ -215,5 +215,5 @@ def UserCheck(request):
 @api_view(['GET'])
 def getLastPNum(reques):
     problem = ProblemInfo.objects.order_by('-pno').first()
-    pnum = String(problem.pno + 1)
+    pnum = problem.pno + 1
     return Response(pnum)
