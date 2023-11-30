@@ -4,7 +4,7 @@ from django.db import models
 
 class Comments(models.Model):
     pno = models.ForeignKey('ProblemInfo', models.DO_NOTHING, db_column='Pno')  # Field name made lowercase.
-    maker_id = models.ForeignKey('UserInfo', models.DO_NOTHING)
+    maker = models.ForeignKey('UserInfo', models.DO_NOTHING)
     comm = models.CharField(max_length=300, blank=True, null=True)
     comm_time = models.DateTimeField()
 

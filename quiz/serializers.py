@@ -15,7 +15,7 @@ class ProblemInfoSerializers(serializers.ModelSerializer):
 class ProblemContentSerializers(serializers.ModelSerializer):
     class Meta:
         model = ProblemContent
-        fields = ('pno', 'problem_exlain', 'answer', 'ans_explain')
+        fields = ('pno', 'problem_explain', 'answer', 'ans_explain')
 
 class SubjectsSerializers(serializers.ModelSerializer):
     class Meta:
@@ -25,4 +25,4 @@ class SubjectsSerializers(serializers.ModelSerializer):
 class CommentsSerializers(serializers.ModelSerializer):
     class Meta:
         model = Comments
-        fields = ('pno', 'maker_id', 'comm', 'comm_time')
+        fields = ('pno', 'maker', 'comm', 'comm_time')
