@@ -37,7 +37,7 @@ def SubjectProblemListSortbyTime(request, Sid, loadcnt):
                 "pstate" : row[3],
                 "trycnt" : row[4],
                 "accnt" : row[5],
-                "makerid" : row[6],
+                "maker_id" : row[6],
                 "problem_explain" : row[7],
                 "upoint" : row[8],
                 "uname" : row[9],
