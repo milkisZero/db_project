@@ -158,6 +158,38 @@ def UpdateCnts(request, spno, isAC):
     updateRow.save()
     return Response(status=status.HTTP_201_CREATED)
 
+@api_view(['GET'])
+def UpdateLike(request, spno):
+    updateRow = ProblemInfo.objects.get(pno=spno)
+
+    updateRow.plike += 1
+    updateRow.save()
+    return Response(status=status.HTTP_201_CREATED)
+
+@api_view(['GET'])
+def UpdatePoint(request, uid, mod):
+
+    updateRow = UserInfo.objects.get(id=uid)
+
+    if(mod == 0):
+        updateRow.upoint += 10
+    else:
+        updateRow.upoint += 1
+
+    updateRow.save()
+    return Response(status=status.HTTP_201_CREATED)
+
+@api_view(['GET'])
+def UpdatePstate(request, spno):
+    updateRow = ProblemInfo.objects.get(pno=spno)
+
+    if(updateRow.pstate):
+        updateRow.pstate = False
+    else:
+        updateRow.pstate = True
+    updateRow.save()
+    return Response(status=status.HTTP_201_CREATED)
+
 
 @api_view(['POST'])
 @parser_classes([JSONParser])
