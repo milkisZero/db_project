@@ -19,7 +19,7 @@ def SubjectProblemListSortbyTime(request, Sid, loadcnt):
     curs = conn.cursor()
     loadcnt *= 10
     sql = """
-         SELECT PI.PTime, PI.Pno, PI.Plike, PI.Pstate, PI.TryCnt, PI.AcCnt,  PC.Problem_explain, U.Upoint, U.Uname, S.Sid, S.Sname
+         SELECT PI.PTime, PI.Pno, PI.Plike, PI.Pstate, PI.TryCnt, PI.AcCnt, PI.maker_id, PC.Problem_explain, U.Upoint, U.Uname, S.Sid, S.Sname
          FROM Problem_info AS PI, Problem_content AS PC, User_info AS U, Subjects AS S
          WHERE  PI.Sub_id={Sidstr} && PI.maker_id=U.id && PI.Pno=PC.Pno && PI.Sub_id=S.Sid
          ORDER BY PI.Ptime DESC 
@@ -37,11 +37,12 @@ def SubjectProblemListSortbyTime(request, Sid, loadcnt):
                 "pstate" : row[3],
                 "trycnt" : row[4],
                 "accnt" : row[5],
-                "problem_explain" : row[6],
-                "upoint" : row[7],
-                "uname" : row[8],
-                "sid" : row[9],
-                "sname" : row[10],
+                "makerid" : row[6],
+                "problem_explain" : row[7],
+                "upoint" : row[8],
+                "uname" : row[9],
+                "sid" : row[10],
+                "sname" : row[11],
             } for row in rows
     ]
 
@@ -62,7 +63,7 @@ def AllProblemListSortby(request, loadcnt, sortmode):
         order = "Plike"
 
     sql = """
-        SELECT PI.PTime, PI.Pno, PI.Plike, PI.Pstate, PI.TryCnt, PI.AcCnt, PC.problem_explain, U.Upoint, U.Uname, S.Sid, S.Sname
+        SELECT PI.PTime, PI.Pno, PI.Plike, PI.Pstate, PI.TryCnt, PI.AcCnt, PI.maker_id, PC.problem_explain, U.Upoint, U.Uname, S.Sid, S.Sname
         FROM Problem_info AS PI, Problem_content AS PC, User_info AS U, Subjects AS S
         WHERE  PI.Sub_id=S.Sid && PI.maker_id=U.id && PI.Pno=PC.Pno
         ORDER BY PI.{orderby} DESC 
@@ -75,17 +76,18 @@ def AllProblemListSortby(request, loadcnt, sortmode):
 
     json_data = [
             {
-                "ptime" : row[0],
+               "ptime" : row[0],
                 "pno" : row[1],
                 "plike" : row[2],
                 "pstate" : row[3],
                 "trycnt" : row[4],
                 "accnt" : row[5],
-                "problem_explain" : row[6],
-                "upoint" : row[7],
-                "uname" : row[8],
-                "sid" : row[9],
-                "sname" : row[10],
+                "maker_id" : row[6],
+                "problem_explain" : row[7],
+                "upoint" : row[8],
+                "uname" : row[9],
+                "sid" : row[10],
+                "sname" : row[11],
             } for row in rows
     ]
 
@@ -126,10 +128,10 @@ def CommentsInfo(request, pno):
     curs = conn.cursor()
 
     sql = """
-        SELECT maker_id, comm, comm_time
-        FROM Comments
-        WHERE Pno={spno}
-        ORDER BY comm_time DESC
+        SELECT C.maker_id, C.comm, C.comm_time, U.Uname
+        FROM Comments AS C, User_info AS U
+        WHERE C.Pno={spno} && C.maker_id=U.id
+        ORDER BY C.comm_time DESC
         """.format(spno = str(pno))
     
     curs.execute(sql)
@@ -142,6 +144,7 @@ def CommentsInfo(request, pno):
                 'maker_id' : row[0],
                 'comm' : row[1],
                 'comm_time' : row[2],
+                'uname' : row[3]
             } for row in rows
     ]
     
