@@ -19,4 +19,5 @@ urlpatterns = [
     path("make/ui/", postUserInfo),
     path("check/user/", UserCheck),
     path("get/pnum/", getLastPNum),
+    path("pay/point/<str:uid>/", payPoint),
 ]

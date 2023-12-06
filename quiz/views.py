@@ -186,6 +186,17 @@ def UpdatePoint(request, uid, mod):
     return Response(status=status.HTTP_201_CREATED)
 
 @api_view(['GET'])
+def payPoint(request, uid):
+    updateRow = UserInfo.objects.get(id=uid)
+
+    if(updateRow.upoint > 50):
+        updateRow.upoint -= 50
+        updateRow.save()
+        return Response(status=status.HTTP_201_CREATED)
+    else:
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
 def UpdatePstate(request, spno):
     updateRow = ProblemInfo.objects.get(pno=spno)
 
