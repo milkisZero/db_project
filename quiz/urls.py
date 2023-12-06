@@ -10,7 +10,7 @@ urlpatterns = [
     path("detail/<int:pno>/", ProblemDetails),
     path("comm/<int:pno>/", CommentsInfo),
     path("update/cnt/<int:spno>/<int:isAC>/", UpdateCnts),
-    path("update/like/<int:spno>/", UpdateLike),
+    path("update/like/<int:spno>/<str:uid>/", UpdateLike),
     path("update/point/<str:uid>/<int:mod>/", UpdatePoint),
     path("update/pstate/<int:spno>/", UpdatePstate),
     path("make/pi/", postProblemInfo),

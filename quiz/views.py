@@ -162,11 +162,14 @@ def UpdateCnts(request, spno, isAC):
     return Response(status=status.HTTP_201_CREATED)
 
 @api_view(['GET'])
-def UpdateLike(request, spno):
-    updateRow = ProblemInfo.objects.get(pno=spno)
+def UpdateLike(request, spno, uid):
+    updatePI = ProblemInfo.objects.get(pno=spno)
+    updateUser = UserInfo.objects.get(id=uid)
 
-    updateRow.plike += 1
-    updateRow.save()
+    updatePI.plike += 1
+    updateUser.upoint += 1
+    updatePI.save()
+    updateUser.save()
     return Response(status=status.HTTP_201_CREATED)
 
 @api_view(['GET'])
