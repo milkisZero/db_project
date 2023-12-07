@@ -20,4 +20,5 @@ urlpatterns = [
     path("check/user/", UserCheck),
     path("get/pnum/", getLastPNum),
     path("pay/point/<str:uid>/", payPoint),
+    path("get/point/<str:uid>/", getPoint),
 ]

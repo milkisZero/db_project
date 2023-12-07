@@ -195,6 +195,12 @@ def payPoint(request, uid):
         return Response(status=status.HTTP_201_CREATED)
     else:
         return Response(status=status.HTTP_400_BAD_REQUEST)
+    
+@api_view(['GET'])
+def getPoint(request, uid):
+    updateRow = UserInfo.objects.get(id=uid)
+    return JsonResponse(updateRow, safe=False)
+
 
 @api_view(['GET'])
 def UpdatePstate(request, spno):
