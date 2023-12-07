@@ -199,7 +199,8 @@ def payPoint(request, uid):
 @api_view(['GET'])
 def getPoint(request, uid):
     updateRow = UserInfo.objects.get(id=uid)
-    return JsonResponse(updateRow, safe=False)
+    data = updateRow.upoint
+    return JsonResponse(data, safe=False)
 
 
 @api_view(['GET'])
